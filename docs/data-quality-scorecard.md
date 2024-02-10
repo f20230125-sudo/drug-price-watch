@@ -1,6 +1,6 @@
 # Data-quality scorecard
 
-21 checks run against the warehouse built from the NADAC files. 12 pass, 0 warn, 0 fail, 9 are measurements with no rule.
+22 checks run against the warehouse built from the NADAC files. 12 pass, 0 warn, 0 fail, 10 are measurements with no rule.
 
 Regenerate with `python -m pw.dq`. Failures and warnings come first.
 
@@ -146,3 +146,10 @@ Regenerate with `python -m pw.dq`. Failures and warnings come first.
 - **Result:** 8 of 14
 - **Rule:** report
 - **Note:** Keytruda, Winrevair, Bridion, Zerbaxa, Prevymis and Welireg are not priced by NADAC; the page lists them as such.
+
+## C22 Packs first priced in 2026 that the Medicaid product records do not know yet
+
+- **Status:** info
+- **Result:** 1,964 packs (1,871 generic)
+- **Rule:** report
+- **Note:** A new pack has no record until Medicaid sees a claim, so it has no ingredient or owner. A search by ingredient missed the 28 generic sitagliptin packs priced since 5 Aug 2026 and wrongly reported none; the Merck lens now finds them by the name on the NADAC record, and the weekly watch does the same.
