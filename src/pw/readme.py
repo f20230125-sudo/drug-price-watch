@@ -4,7 +4,7 @@
     python -m pw.readme --check    # exit 1 if README.md is out of date (tests/test_readme.py does this)
 
 Every number in the README is a {{path.in.headline|format}} placeholder, so the text cannot drift from the data.
-Formats: int (1,234), f1 / f2 (decimals), pct0 / pct1 / abs_pct0 (a share as a percentage), usd_m / usd_b ($1.2M / $1.2B),
+Formats: str (as is), int (1,234), f1 / f2 (decimals), pct0 / pct1 / abs_pct0 (a share as a percentage), usd_m / usd_b ($1.2M / $1.2B),
 usd2 ($3.77), up_pct0 (+22% or -53% from an index against 100), date (2026-10-14 as 14 Oct 2026).
 """
 
@@ -25,6 +25,8 @@ PATTERN = re.compile(r"\{\{\s*([\w.]+)\s*\|\s*(\w+)\s*\}\}")
 
 
 def fmt(value, kind: str) -> str:
+    if kind == "str":
+        return str(value)
     if kind == "int":
         return f"{round(value):,}"
     if kind == "f1":
