@@ -176,7 +176,7 @@ def run(con: duckdb.DuckDBPyConnection) -> list[Check]:
     add(Check("C14", "Method break", "Brand rates start drifting by under 0.5% from 2024",
               f"share of brand changes under 0.5%: {_pct(d[2022])} in 2022, {_pct(d[2024])} in 2024",
               "report", "info",
-              "A change in how NADAC is published, not a market event. Counts of 'changes' jump about five-fold; "
+              "A change in how NADAC is published, not a market event. Counts of brand 'changes' jump from 2,765 in 2023 to 16,961 in 2024; "
               "this project counts 'material' changes (1% or more) and says so wherever it counts."))
     bulk = con.execute("""
         select y, count(*) from (select year(as_of) y, as_of from fact_change group by 1, 2 having count(*) > 1000)

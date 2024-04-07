@@ -57,7 +57,7 @@
    "pattern": "^SITAGLIPTIN",
    "class": "G",
    "why": "NADAC has priced generic sitagliptin since 5 Aug 2026; a change in the number of packs priced is flagged",
-   "found": 5,
+   "found": 28,
    "packs": [
     "SITAGLIPTIN PHOSPHATE 100 MG TABLET",
     "SITAGLIPTIN PHOSPHATE 25 MG TABLET",
@@ -75,7 +75,7 @@
    "pattern": "^SITAGLIPTIN PHOSPHATE 100 MG TABLET$",
    "class": "G",
    "why": "A new generic's rate often sits flat while few invoices are reported; a move of 5% or more is flagged",
-   "found": 1,
+   "found": 8,
    "packs": [
     "SITAGLIPTIN PHOSPHATE 100 MG TABLET"
    ],
@@ -88,7 +88,7 @@
    "pattern": "^JANUVIA 100 MG TABLET$",
    "class": "B",
    "why": "Stepped down 42% on 1 Jan 2025; any further move of 5% or more is flagged",
-   "found": 1,
+   "found": 5,
    "packs": [
     "JANUVIA 100 MG TABLET"
    ],

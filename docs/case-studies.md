@@ -34,7 +34,7 @@ The order to tell these in if you have ten minutes: the sitagliptin miss (1), th
 
 **What it was.** NADAC publishes a snapshot every week, but nearly all rates move once a month in a bulk update of about 28,000 packs; the weeks between change a handful. Twelve such weeks a year, every year since 2015 (scorecard C15).
 
-**Fix.** "Latest" means the latest week with more than 1,000 changes. The same profiling found a second thing: from spring 2024 brand rates start drifting by hundredths of a percent at every update (the share of brand changes under 0.5% goes from 20% in 2022 to 86% in 2024), so raw counts of changes jump five-fold with no market event. Counts now use a 1% threshold and the break is a scorecard check (C14).
+**Fix.** "Latest" means the latest week with more than 1,000 changes. The same profiling found a second thing: from spring 2024 brand rates start drifting by hundredths of a percent at every update (the share of brand changes under 0.5% goes from 20% in 2022 to 86% in 2024), so raw counts of brand changes jump from 2,765 in 2023 to 16,961 in 2024 with no market event. Counts now use a 1% threshold and the break is a scorecard check (C14).
 
 ## 5. Do two price sources agree?
 

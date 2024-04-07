@@ -47,7 +47,7 @@ python -m pw.fetch          # 14 yearly files, about 1.6 GB, a few minutes
 python -m pw.build          # warehouse (about 5 minutes)
 python -m pw.dq             # scorecard
 python -m pw.export_json    # JSON for the site
-python -m pw.workbook       # Excel model
+python -m pw.workbook       # Excel model (then tools/recalc.ps1 to store Excel's own values in the file)
 python -m pw.readme         # this file
 python -m pytest            # tests
 cd dashboard && npm ci && npm run build && npm run start
