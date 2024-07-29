@@ -1,15 +1,15 @@
 {
- "checked": "2026-10-22",
- "latestWeek": "2026-10-21",
+ "checked": "2026-10-29",
+ "latestWeek": "2026-10-28",
  "firstWeek": "2026-01-07",
- "rows": 1268309,
- "packs": 32972,
- "weeksInFile": 42,
+ "rows": 1298476,
+ "packs": 33045,
+ "weeksInFile": 43,
  "checks": [
   {
    "name": "Rows equal the portal's row count",
    "ok": true,
-   "value": "1,268,309 vs 1,268,309"
+   "value": "1,298,476 vs 1,298,476"
   },
   {
    "name": "Every NDC has 11 digits",
@@ -39,7 +39,7 @@
   {
    "name": "Newest snapshot is under 14 days old",
    "ok": true,
-   "value": "1 days (2026-10-21)"
+   "value": "1 days (2026-10-28)"
   }
  ],
  "latestUpdate": {
@@ -69,8 +69,8 @@
     "SITAGLIPTIN PHOSPHATE-METFORMIN ER 50 MG-500 MG TABLET"
    ],
    "moves": [],
-   "previous": 28,
-   "flag": true
+   "previous": 31,
+   "flag": false
   },
   {
    "name": "Generic sitagliptin 100 mg rate",
@@ -99,8 +99,6 @@
    "flag": false
   }
  ],
- "flags": [
-  "Generic sitagliptin packs"
- ],
+ "flags": [],
  "status": "ok"
 }
