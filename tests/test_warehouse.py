@@ -126,3 +126,27 @@ def test_headline_numbers_come_from_the_marts(real):
     assert head["index"]["weighted"]["brand"] == pytest.approx(last, abs=0.01)
     assert head["packs"] == one(real, "select count(distinct ndc11) from fact_nadac")
     assert head["checks"]["total"] == len(list(open(MARTS / "dq_checks.csv", encoding="utf-8"))) - 1
+
+
+def test_generic_sitagliptin_is_found_by_name_not_only_by_ingredient(real):
+    # Packs first priced this year have no Medicaid product record, so an ingredient search finds none of them.
+    by_ingredient = one(real, "select count(*) from dim_ndc where ingredient like '%SITAGLIPTIN%' and segment = 'Generic'")
+    by_name = one(real, "select count(*) from dim_ndc where description like 'SITAGLIPTIN%' and segment = 'Generic'")
+    assert by_ingredient == 0 and by_name >= 20
+    assert one(real, "select generic_packs from mart_sitagliptin_summary") == by_name
+    assert str(one(real, "select generic_first_week from mart_sitagliptin_summary")) >= "2026-01-01"
+
+
+def test_generic_sitagliptin_rate_is_a_fraction_of_januvias(real):
+    rows = real.execute("select generic_rate, januvia_rate, ratio from mart_sitagliptin_rates").fetchall()
+    assert len(rows) == 3
+    for g, j, r in rows:
+        assert 0 < g < j and r == pytest.approx(g / j)
+
+
+def test_headline_reports_the_same_sitagliptin_numbers_as_the_mart(real):
+    from pw.sources import ROOT
+    head = json.loads((ROOT / "dashboard" / "public" / "data" / "headline.json").read_text())
+    s = head["merck"]["sitagliptin"]
+    assert s["genericPacks"] == one(real, "select generic_packs from mart_sitagliptin_summary")
+    assert s["ratio100"] == pytest.approx(one(real, "select ratio from mart_sitagliptin_rates where strength = '100 MG'"), abs=1e-4)

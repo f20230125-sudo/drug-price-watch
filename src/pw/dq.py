@@ -231,6 +231,13 @@ def run(con: duckdb.DuckDBPyConnection) -> list[Check]:
     add(Check("C21", "Coverage", "Merck product families with a retail NADAC price",
               f"{fam[0]} of {fam[1]}", "report", "info",
               "Keytruda, Winrevair, Bridion, Zerbaxa, Prevymis and Welireg are not priced by NADAC; the page lists them as such."))
+    new, new_gen = _one(con, """select count(*), count(*) filter (where segment = 'Generic') from dim_ndc
+                                where not in_rx and first_week >= date '2026-01-01'""")
+    add(Check("C22", "Coverage", "Packs first priced in 2026 that the Medicaid product records do not know yet",
+              f"{new:,} packs ({new_gen:,} generic)", "report", "info",
+              "A new pack has no record until Medicaid sees a claim, so it has no ingredient or owner. A search by "
+              "ingredient missed the 28 generic sitagliptin packs priced since 5 Aug 2026 and wrongly reported none; "
+              "the Merck lens now finds them by the name on the NADAC record, and the weekly watch does the same."))
     return checks
 
 
