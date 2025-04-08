@@ -97,10 +97,11 @@ def analyse(csv_path: Path, expected_rows: int | None, watches: list[dict], toda
     results = []
     for w in watches:
         pat = re.compile(w["pattern"], re.I)
-        hits = [(d, c) for d, c in con.execute(
-            "select distinct description, cls from t where as_of = ?", [latest]).fetchall()
+        # one hit per pack (NDC), not per description: 28 generic sitagliptin packs share five descriptions
+        hits = [(n, d, c) for n, d, c in con.execute(
+            "select distinct ndc, description, cls from t where as_of = ?", [latest]).fetchall()
             if pat.search(d) and (not w["class"] or c == w["class"])]
-        names = sorted({d for d, _ in hits})
+        names = sorted({d for _, d, _ in hits})
         res = {"name": w["name"], "kind": w["kind"], "pattern": w["pattern"], "class": w["class"], "why": w["why"],
                "found": len(hits), "packs": names[:8], "moves": []}
         if w["kind"] == "rate":
