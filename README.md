@@ -2,6 +2,8 @@
 
 What US pharmacies pay for prescription drugs, week by week since 2013: how prices move, when they step, what happens to a brand's price when generics arrive, and whether two independent price sources agree. Built from 17,317,268 weekly NADAC rates on 62,780 drug packs, a weekly check that runs by itself, and an Excel model with every result as a live formula.
 
+**Live site:** https://drug-price-watch.vercel.app
+
 > The README is generated: `python -m pw.readme` fills every number from `dashboard/public/data/headline.json`, and a test fails if this file is out of date.
 
 ## What it found
