@@ -1,15 +1,15 @@
 {
- "checked": "2026-10-18",
- "latestWeek": "2026-10-14",
+ "checked": "2026-10-22",
+ "latestWeek": "2026-10-21",
  "firstWeek": "2026-01-07",
- "rows": 1238214,
- "packs": 32873,
- "weeksInFile": 41,
+ "rows": 1268309,
+ "packs": 32972,
+ "weeksInFile": 42,
  "checks": [
   {
    "name": "Rows equal the portal's row count",
    "ok": true,
-   "value": "1,238,214 vs 1,238,214"
+   "value": "1,268,309 vs 1,268,309"
   },
   {
    "name": "Every NDC has 11 digits",
@@ -39,16 +39,16 @@
   {
    "name": "Newest snapshot is under 14 days old",
    "ok": true,
-   "value": "4 days (2026-10-14)"
+   "value": "1 days (2026-10-21)"
   }
  ],
  "latestUpdate": {
-  "date": "2026-09-23",
-  "changes": 28605,
-  "ups": 13311,
-  "downs": 15294,
-  "material": 19535,
-  "medianChange": -0.0009
+  "date": "2026-10-21",
+  "changes": 28712,
+  "ups": 14883,
+  "downs": 13829,
+  "material": 20165,
+  "medianChange": 0.00042
  },
  "watches": [
   {
@@ -57,17 +57,20 @@
    "pattern": "^SITAGLIPTIN",
    "class": "G",
    "why": "NADAC has priced generic sitagliptin since 5 Aug 2026; a change in the number of packs priced is flagged",
-   "found": 28,
+   "found": 31,
    "packs": [
     "SITAGLIPTIN PHOSPHATE 100 MG TABLET",
     "SITAGLIPTIN PHOSPHATE 25 MG TABLET",
     "SITAGLIPTIN PHOSPHATE 50 MG TABLET",
     "SITAGLIPTIN PHOSPHATE-METFORMIN 50 MG-1,000 MG TABLET",
-    "SITAGLIPTIN PHOSPHATE-METFORMIN 50 MG-500 MG TABLET"
+    "SITAGLIPTIN PHOSPHATE-METFORMIN 50 MG-500 MG TABLET",
+    "SITAGLIPTIN PHOSPHATE-METFORMIN ER 100 MG-1,000 MG TABLET",
+    "SITAGLIPTIN PHOSPHATE-METFORMIN ER 50 MG-1,000 MG TABLET",
+    "SITAGLIPTIN PHOSPHATE-METFORMIN ER 50 MG-500 MG TABLET"
    ],
    "moves": [],
    "previous": 28,
-   "flag": false
+   "flag": true
   },
   {
    "name": "Generic sitagliptin 100 mg rate",
@@ -96,6 +99,8 @@
    "flag": false
   }
  ],
- "flags": [],
+ "flags": [
+  "Generic sitagliptin packs"
+ ],
  "status": "ok"
 }
