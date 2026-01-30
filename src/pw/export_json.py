@@ -135,7 +135,13 @@ def export_merck(con) -> dict:
                      "price2025": _r(r[9], 3), "priceLatest": _r(r[10], 3), "changeSince2019": _r(r[11], 4),
                      "familyIndex": _r(r[12], 1), "inNadac": bool(r[13])})
     brand_now = con.execute("select max(brand_index_now) from mart_merck").fetchone()[0]
-    payload = {"families": rows, "brandIndexNow": _r(brand_now, 1)}
+    n_gen, n_lab, first_gen, n_brand = con.execute(
+        "select generic_packs, generic_labelers, generic_first_week, brand_packs from mart_sitagliptin_summary").fetchone()
+    rates = [{"strength": r[0], "genericPacks": int(r[1]), "genericRate": _r(r[2], 4), "januviaRate": _r(r[3], 4),
+              "ratio": _r(r[4], 4)} for r in con.execute("select * from mart_sitagliptin_rates").fetchall()]
+    payload = {"families": rows, "brandIndexNow": _r(brand_now, 1),
+               "sitagliptin": {"genericPacks": int(n_gen), "genericLabelers": int(n_lab), "genericFirstWeek": _iso(first_gen),
+                               "brandPacks": int(n_brand), "rates": rates}}
     _write("merck.json", payload)
     return payload
 
@@ -174,9 +180,8 @@ def headline(con, idx: dict, ev: dict, mv: dict, ero: dict, mer: dict, tri: dict
     jan_pack = con.execute("select ndc11, description from merck_pack where family = 'JANUVIA'").fetchone()
     step = con.execute("select as_of, prev_price, price, pct from fact_change where ndc11 = ? order by pct limit 1",
                        [jan_pack[0]]).fetchone()
-    sita = con.execute("""select count(*) filter (where ingredient like '%SITAGLIPTIN%'),
-                                 count(*) filter (where ingredient like '%SITAGLIPTIN%' and segment <> 'Brand')
-                          from dim_ndc""").fetchone()
+    sita = mer["sitagliptin"]
+    r100 = next(r for r in sita["rates"] if r["strength"] == "100 MG")
     core = con.execute("select core_end from rx_merck where family = 'JANUVIA'").fetchone()[0]
     t = {(p["y0"], p["y1"], p["segment"]): p for p in tri["pairs"]}
     rxp = {(p["y0"], p["y1"]): p for p in tri["rx"]}
@@ -206,7 +211,10 @@ def headline(con, idx: dict, ev: dict, mv: dict, ero: dict, mer: dict, tri: dict
                                     "corr": t_brand["rankCorr"], "coverageSpend": t_brand["coverageSpend"]}},
         "merck": {"januvia": {"pack": jan_pack[1], "stepDate": _iso(step[0]), "from": _r(step[1], 3), "to": _r(step[2], 3),
                               "stepPct": _r(step[3], 4)},
-                  "sitagliptinPacks": int(sita[0]), "sitagliptinGenericPacks": int(sita[1]), "coreEnd": _iso(core),
+                  "sitagliptin": {"genericPacks": sita["genericPacks"], "genericLabelers": sita["genericLabelers"],
+                                  "genericFirstWeek": sita["genericFirstWeek"], "genericRate100": r100["genericRate"],
+                                  "januviaRate100": r100["januviaRate"], "ratio100": r100["ratio"]},
+                  "coreEnd": _iso(core),
                   "brandIndexNow": mer["brandIndexNow"], "priced": sum(1 for f in mer["families"] if f["inNadac"]),
                   "families": len(mer["families"])},
         "latest": {"date": mv["latestUpdate"], "changes": mv["changes"], "ups": mv["ups"], "downs": mv["downs"],
