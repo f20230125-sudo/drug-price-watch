@@ -1,0 +1,49 @@
+segment,m,steps_up_2pct,steps_down_2pct,changes
+Biologic,1,0,0,11
+Biologic,2,0,0,10
+Biologic,3,0,1,17
+Biologic,4,0,0,15
+Biologic,5,0,0,26
+Biologic,6,0,0,16
+Biologic,7,0,0,20
+Biologic,8,0,0,23
+Biologic,9,0,0,25
+Biologic,10,0,0,25
+Biologic,11,0,0,22
+Biologic,12,3,1,34
+Brand,1,13854,864,17400
+Brand,2,1670,783,5311
+Brand,3,1385,646,4313
+Brand,4,1965,710,5374
+Brand,5,1158,530,6347
+Brand,6,2469,632,8045
+Brand,7,2675,698,8239
+Brand,8,1116,525,6342
+Brand,9,998,644,6315
+Brand,10,1195,777,9516
+Brand,11,1007,680,7221
+Brand,12,1800,705,7325
+Branded generic,1,416,76,561
+Branded generic,2,120,56,238
+Branded generic,3,82,76,219
+Branded generic,4,135,69,260
+Branded generic,5,89,98,295
+Branded generic,6,130,71,349
+Branded generic,7,147,111,387
+Branded generic,8,102,85,290
+Branded generic,9,93,65,273
+Branded generic,10,94,103,343
+Branded generic,11,89,75,288
+Branded generic,12,107,53,292
+Generic,1,86522,96447,252988
+Generic,2,110067,83975,254645
+Generic,3,93960,91725,252845
+Generic,4,58163,131235,255188
+Generic,5,95281,88569,258148
+Generic,6,90694,95923,257406
+Generic,7,81386,105772,258774
+Generic,8,99810,91121,259323
+Generic,9,71738,115661,259094
+Generic,10,85001,103217,260529
+Generic,11,72348,124368,260859
+Generic,12,103527,93791,262129
