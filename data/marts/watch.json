@@ -52,10 +52,11 @@
  },
  "watches": [
   {
-   "name": "First generic sitagliptin pack",
-   "pattern": "SITAGLIPTIN",
+   "name": "Generic sitagliptin packs",
+   "kind": "presence",
+   "pattern": "^SITAGLIPTIN",
    "class": "G",
-   "why": "Januvia and Janumet core protection ends 24 Nov 2026 (Orange Book); no generic sitagliptin pack is priced yet",
+   "why": "NADAC has priced generic sitagliptin since 5 Aug 2026; a change in the number of packs priced is flagged",
    "found": 5,
    "packs": [
     "SITAGLIPTIN PHOSPHATE 100 MG TABLET",
@@ -65,10 +66,25 @@
     "SITAGLIPTIN PHOSPHATE-METFORMIN 50 MG-500 MG TABLET"
    ],
    "moves": [],
-   "flag": true
+   "previous": null,
+   "flag": false
+  },
+  {
+   "name": "Generic sitagliptin 100 mg rate",
+   "kind": "rate",
+   "pattern": "^SITAGLIPTIN PHOSPHATE 100 MG TABLET$",
+   "class": "G",
+   "why": "A new generic's rate often sits flat while few invoices are reported; a move of 5% or more is flagged",
+   "found": 1,
+   "packs": [
+    "SITAGLIPTIN PHOSPHATE 100 MG TABLET"
+   ],
+   "moves": [],
+   "flag": false
   },
   {
    "name": "Januvia 100 mg rate",
+   "kind": "rate",
    "pattern": "^JANUVIA 100 MG TABLET$",
    "class": "B",
    "why": "Stepped down 42% on 1 Jan 2025; any further move of 5% or more is flagged",
@@ -80,8 +96,6 @@
    "flag": false
   }
  ],
- "flags": [
-  "First generic sitagliptin pack"
- ],
+ "flags": [],
  "status": "ok"
 }
