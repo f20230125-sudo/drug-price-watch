@@ -77,8 +77,11 @@ def export_events(con) -> dict:
     bulk = [{"date": _iso(d), "changes": int(n)} for d, n in con.execute(
         """select as_of, count(*) from fact_change where y >= 2025 group by as_of having count(*) > 1000
            order by as_of""").fetchall()]
+    weeks = [{"d": _iso(d), "n": int(n)} for d, n in con.execute(
+        """select f.as_of, coalesce(c.n, 0) from (select distinct as_of from fact_nadac where year(as_of) >= 2014) f
+           left join (select as_of, count(*) as n from fact_change group by 1) c using (as_of) order by 1""").fetchall()]
     payload = {"years": [{"y": y, **v} for y, v in sorted(years.items())], "season": season, "drift": drift,
-               "bulkUpdates": bulk}
+               "bulkUpdates": bulk, "weeks": weeks}
     _write("events.json", payload)
     return payload
 
@@ -139,7 +142,15 @@ def export_merck(con) -> dict:
         "select generic_packs, generic_labelers, generic_first_week, brand_packs from mart_sitagliptin_summary").fetchone()
     rates = [{"strength": r[0], "genericPacks": int(r[1]), "genericRate": _r(r[2], 4), "januviaRate": _r(r[3], 4),
               "ratio": _r(r[4], 4)} for r in con.execute("select * from mart_sitagliptin_rates").fetchall()]
-    payload = {"families": rows, "brandIndexNow": _r(brand_now, 1),
+    weekly = [{"d": _iso(d), "januvia": _r(j, 4), "generic": _r(g, 4)} for d, j, g in con.execute(
+        """select f.as_of,
+                  median(f.price) filter (where d.description = 'JANUVIA 100 MG TABLET'),
+                  median(f.price) filter (where d.description = 'SITAGLIPTIN PHOSPHATE 100 MG TABLET')
+           from fact_nadac f join dim_ndc d using (ndc11)
+           where f.as_of >= date '2024-06-01'
+             and d.description in ('JANUVIA 100 MG TABLET', 'SITAGLIPTIN PHOSPHATE 100 MG TABLET')
+           group by 1 order by 1""").fetchall()]
+    payload = {"families": rows, "brandIndexNow": _r(brand_now, 1), "sitagliptinWeekly": weekly,
                "sitagliptin": {"genericPacks": int(n_gen), "genericLabelers": int(n_lab), "genericFirstWeek": _iso(first_gen),
                                "brandPacks": int(n_brand), "rates": rates}}
     _write("merck.json", payload)

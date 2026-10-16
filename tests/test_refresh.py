@@ -131,3 +131,13 @@ def test_log_and_json_are_written(file, tmp_path, monkeypatch):
     rows = list(csv.DictReader((tmp_path / "log.csv").open(encoding="utf-8")))
     assert len(rows) == 2 and rows[0]["status"] == "ok" and rows[0]["latest_update"] == "2026-09-16"
     assert (tmp_path / "watch.json").exists()
+
+
+def test_the_presence_watch_counts_packs_not_descriptions(tmp_path):
+    """Three packs that share one description are three packs (28 generic sitagliptin packs share five descriptions)."""
+    wk = date(2026, 10, 7)
+    p = tmp_path / "share.csv"
+    write(p, [wk - timedelta(days=7), wk], [(f"{i:011d}", "SITAGLIPTIN PHOSPHATE 100 MG TABLET", "G", 3.77) for i in range(1, 4)])
+    rep = refresh.analyse(p, None, WATCHES[:1], date(2026, 10, 16))
+    assert rep["watches"][0]["found"] == 3
+    assert rep["watches"][0]["packs"] == ["SITAGLIPTIN PHOSPHATE 100 MG TABLET"]

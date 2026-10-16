@@ -456,8 +456,14 @@ def build(path: Path = OUT) -> Path:
 
 
 def main() -> int:
+    import shutil
+
     p = build()
-    print(f"wrote {p} ({p.stat().st_size / 1e6:.2f} MB)")
+    # the site offers this file for download
+    dest = ROOT / "dashboard" / "public" / "downloads" / p.name
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(p, dest)
+    print(f"wrote {p} ({p.stat().st_size / 1e6:.2f} MB), copied to {dest.relative_to(ROOT)}")
     return 0
 
 

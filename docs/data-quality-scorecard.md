@@ -67,7 +67,7 @@ Regenerate with `python -m pw.dq`. Failures and warnings come first.
 ## C17 Weekly index ratio recomputed independently in Python
 
 - **Status:** pass
-- **Result:** 3 weeks checked; largest difference 3.55e-15
+- **Result:** 3 weeks checked; largest difference 4.11e-15
 - **Rule:** below 1e-9
 - **Note:** Python re-derives the ratio from raw rows with no window functions, to catch a SQL mistake.
 
@@ -124,7 +124,7 @@ Regenerate with `python -m pw.dq`. Failures and warnings come first.
 - **Status:** info
 - **Result:** share of brand changes under 0.5%: 19.6% in 2022, 86.3% in 2024
 - **Rule:** report
-- **Note:** A change in how NADAC is published, not a market event. Counts of 'changes' jump about five-fold; this project counts 'material' changes (1% or more) and says so wherever it counts.
+- **Note:** A change in how NADAC is published, not a market event. Counts of brand 'changes' jump from 2,765 in 2023 to 16,961 in 2024; this project counts 'material' changes (1% or more) and says so wherever it counts.
 
 ## C15 Rates move in monthly bulk updates
 
