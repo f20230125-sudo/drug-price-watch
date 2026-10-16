@@ -1,0 +1,35 @@
+name: Weekly NADAC watch
+
+# NADAC is published every Wednesday. This job runs on Thursday morning, downloads the current year's file, checks it
+# against the portal's own row count, summarises the latest monthly update, follows the packs in data/ref/watch.csv,
+# and commits the result. It goes red when a check fails, so a bad file is never published as if it were fine.
+on:
+  schedule:
+    - cron: "30 9 * * 4"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install duckdb requests
+      - name: Download, check and summarise
+        run: PYTHONPATH=src python -m pw.refresh
+      - name: Commit the result
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/marts/watch.json data/marts/weekly_log.csv dashboard/public/data/watch.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Weekly NADAC watch"
+            git push
+          fi

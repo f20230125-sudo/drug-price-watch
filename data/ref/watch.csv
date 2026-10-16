@@ -1,0 +1,4 @@
+name,kind,pattern,class,why
+Generic sitagliptin packs,presence,^SITAGLIPTIN,G,NADAC has priced generic sitagliptin since 5 Aug 2026; a change in the number of packs priced is flagged
+Generic sitagliptin 100 mg rate,rate,^SITAGLIPTIN PHOSPHATE 100 MG TABLET$,G,A new generic's rate often sits flat while few invoices are reported; a move of 5% or more is flagged
+Januvia 100 mg rate,rate,^JANUVIA 100 MG TABLET$,B,Stepped down 42% on 1 Jan 2025; any further move of 5% or more is flagged

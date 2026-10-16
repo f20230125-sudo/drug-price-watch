@@ -1,0 +1,68 @@
+[
+ {
+  "id": "S1",
+  "product": "JANUVIA 100 MG TABLET [00006027731]",
+  "compare": "Brand",
+  "base": 2019,
+  "end": 2025,
+  "keep4": 33.1,
+  "keep8": 18.0,
+  "move4": 2.7,
+  "move8": 3.0
+ },
+ {
+  "id": "S2",
+  "product": "JANUMET 50-1,000 MG TABLET [00006057761]",
+  "compare": "Diabetes & obesity",
+  "base": 2022,
+  "end": 2026,
+  "keep4": 40,
+  "keep8": 20,
+  "move4": 0,
+  "move8": -10
+ },
+ {
+  "id": "S3",
+  "product": "BIKTARVY 50-200-25 MG TABLET [61958250101]",
+  "compare": "All packs",
+  "base": 2016,
+  "end": 2024,
+  "keep4": 100,
+  "keep8": 100,
+  "move4": 0,
+  "move8": 0
+ },
+ {
+  "id": "S4",
+  "product": "ISENTRESS 400 MG TABLET [00006022761]",
+  "compare": "Infectious disease (non-HIV)",
+  "base": 2014,
+  "end": 2020,
+  "keep4": 25,
+  "keep8": 10,
+  "move4": 5,
+  "move8": 8
+ },
+ {
+  "id": "S5",
+  "product": "METFORMIN HCL 625 MG TABLET [72336006430]",
+  "compare": "Generic",
+  "base": 2018,
+  "end": 2023,
+  "keep4": 90,
+  "keep8": 80,
+  "move4": -20,
+  "move8": -35
+ },
+ {
+  "id": "S6",
+  "product": "BELSOMRA 20 MG TABLET [00006033530]",
+  "compare": "Brand",
+  "base": 2025,
+  "end": 2026,
+  "keep4": 0,
+  "keep8": 0,
+  "move4": 100,
+  "move8": 0
+ }
+]

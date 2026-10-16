@@ -43,6 +43,31 @@ left join fam_now fn on fn.family = r.family
 cross join brand_now bn
 order by r.spend_2025 desc;
 
+-- Sitagliptin (Januvia's molecule), found by the name on the NADAC record. Packs that first appeared this year have no
+-- Medicaid product record yet, so they carry no ingredient and an ingredient-based search misses them (the first
+-- version of this project did, and reported "no generic sitagliptin priced"; the weekly watch caught it).
+create or replace table mart_sitagliptin_summary as
+select count(*) filter (where segment = 'Generic') as generic_packs,
+       count(distinct left(ndc11, 5)) filter (where segment = 'Generic') as generic_labelers,
+       min(first_week) filter (where segment = 'Generic') as generic_first_week,
+       count(*) filter (where segment <> 'Generic') as brand_packs
+from dim_ndc where description like 'SITAGLIPTIN%' or description like 'JANUVIA%' or description like 'JANUMET%'
+                or description like 'ZITUVIO%';
+
+create or replace table mart_sitagliptin_rates as
+with last_wk as (select max(as_of) as as_of from fact_nadac),
+priced as (
+    select d.description, f.price, regexp_extract(d.description, '([0-9]+ MG) TABLET$', 1) as strength,
+           case when d.description like 'SITAGLIPTIN PHOSPHATE % MG TABLET' then 'generic'
+                when d.description like 'JANUVIA % MG TABLET' then 'januvia' end as side
+    from fact_nadac f join dim_ndc d using (ndc11), last_wk
+    where f.as_of = last_wk.as_of
+)
+select g.strength, g.n as generic_packs, g.rate as generic_rate, j.rate as januvia_rate, g.rate / j.rate as ratio
+from (select strength, count(*) as n, median(price) as rate from priced where side = 'generic' and strength <> '' group by 1) g
+join (select strength, median(price) as rate from priced where side = 'januvia' and strength <> '' group by 1) j using (strength)
+order by cast(split_part(strength, ' ', 1) as integer);
+
 -- What a "typical" molecule did after generics arrived, in price and in spend (spend is Rx Market Pulse's index,
 -- brand spend relative to the year before entry). Used for the labelled scenario on the page, not as a forecast.
 create or replace table mart_scenario as
@@ -63,6 +88,8 @@ select quantile_cont(brand_index_q4, 0.5) as brand_spend_q4_median,
        count(brand_index_q4) as events_q4, count(brand_index_q8) as events_q8
 from rx_events;
 
+copy mart_sitagliptin_summary to '{marts_dir}/sitagliptin_summary.csv' (header, delimiter ',');
+copy mart_sitagliptin_rates   to '{marts_dir}/sitagliptin_rates.csv'   (header, delimiter ',');
 copy mart_merck          to '{marts_dir}/merck.csv'          (header, delimiter ',');
 copy mart_scenario       to '{marts_dir}/scenario.csv'       (header, delimiter ',');
 copy mart_scenario_spend to '{marts_dir}/scenario_spend.csv' (header, delimiter ',');
