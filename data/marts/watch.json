@@ -1,5 +1,5 @@
 {
- "checked": "2026-10-16",
+ "checked": "2026-10-18",
  "latestWeek": "2026-10-14",
  "firstWeek": "2026-01-07",
  "rows": 1238214,
@@ -39,7 +39,7 @@
   {
    "name": "Newest snapshot is under 14 days old",
    "ok": true,
-   "value": "2 days (2026-10-14)"
+   "value": "4 days (2026-10-14)"
   }
  ],
  "latestUpdate": {
@@ -66,7 +66,7 @@
     "SITAGLIPTIN PHOSPHATE-METFORMIN 50 MG-500 MG TABLET"
    ],
    "moves": [],
-   "previous": null,
+   "previous": 28,
    "flag": false
   },
   {
