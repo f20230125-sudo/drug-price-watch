@@ -1,15 +1,15 @@
 {
- "checked": "2026-11-05",
- "latestWeek": "2026-11-04",
+ "checked": "2026-11-12",
+ "latestWeek": "2026-11-11",
  "firstWeek": "2026-01-07",
- "rows": 1328578,
- "packs": 33045,
- "weeksInFile": 44,
+ "rows": 1358735,
+ "packs": 33106,
+ "weeksInFile": 45,
  "checks": [
   {
    "name": "Rows equal the portal's row count",
    "ok": true,
-   "value": "1,328,578 vs 1,328,578"
+   "value": "1,358,735 vs 1,358,735"
   },
   {
    "name": "Every NDC has 11 digits",
@@ -39,7 +39,7 @@
   {
    "name": "Newest snapshot is under 14 days old",
    "ok": true,
-   "value": "1 days (2026-11-04)"
+   "value": "1 days (2026-11-11)"
   }
  ],
  "latestUpdate": {
